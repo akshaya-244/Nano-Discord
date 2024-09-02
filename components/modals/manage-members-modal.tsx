@@ -40,13 +40,14 @@ const ManageMembersModal = () => {
     const onKick =  async (memberId: string)=>{
         try{
             setLoadingId(memberId)
-            const url=qs.stringify({
+            const url=qs.stringifyUrl({
                 url: `/api/members/${memberId}`,
                 query:{
                     serverId: server?.id
                 }
             })
             const response=await axios.delete(url)
+            console.log("response: ",response.data)
             router.refresh()
             onOpen("manageMembers",{server: response.data})
         }catch(e)

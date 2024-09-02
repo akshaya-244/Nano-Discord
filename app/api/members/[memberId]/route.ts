@@ -7,7 +7,6 @@ export async function  DELETE(req:Request, {params}:{params: {memberId: string}}
     try{
         const profile=await currentProfile()
         const {searchParams}=new URL(req.url)
-        const {role} =await req.json()
         const serverId=searchParams.get("serverId")
         if(!profile)
         {
@@ -22,7 +21,8 @@ export async function  DELETE(req:Request, {params}:{params: {memberId: string}}
         {
             return new NextResponse("Member Id missing",{status:500 })
         }
-
+        console.log("ServerId: ",serverId," PRofile: ",profile.id)
+        
         const server=await db.server.update({
             where: {
                 id: serverId,
@@ -49,6 +49,7 @@ export async function  DELETE(req:Request, {params}:{params: {memberId: string}}
                 }
             }
         })
+        console.log("Server: ",server)
         return  NextResponse.json(server)
     }catch(e)
     {
