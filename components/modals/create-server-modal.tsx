@@ -24,7 +24,7 @@ const formSchema=z.object({
 })
 const CreateServerModal = () => {
 
-    const {type, isOpen, onClose} = useModal()
+    const { isOpen, onClose, type} = useModal()
     const isModalOpen= type=="createServer" && isOpen
     const form=useForm({
         resolver: zodResolver(formSchema),
@@ -40,9 +40,12 @@ const CreateServerModal = () => {
     const isLoading= form.formState.isSubmitting;
     const onSubmit=async (values: z.infer<typeof formSchema>) => {
         try{
-            axios.post('api/servers', values)
+            axios.post('/api/servers', values)
+
             form.reset()
             router.refresh()
+            onClose()
+            window.location.reload()
          }catch(e)
         {
             console.log("Submit Error: ",e)

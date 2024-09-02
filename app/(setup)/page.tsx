@@ -5,7 +5,6 @@ import ServerModal from "@/components/modals/Server_modal";
 
 const SetupPage = async() => {
     const profile= await initialProfile()
-
     const server = await db.server.findFirst({
         where: {
             members: {

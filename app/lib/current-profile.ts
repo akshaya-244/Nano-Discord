@@ -18,7 +18,11 @@ export const currentProfile= async() =>{
     const profile= await db.profile.findUnique({
         where: {
            userId: user.user.id
+        },
+        select:{
+            id:true
         }
     })
+    console.log(profile)
     return profile
 }

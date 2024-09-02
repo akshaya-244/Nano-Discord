@@ -1,5 +1,5 @@
 
-import { getUser } from "@/app/lib/current-profile";
+import { currentProfile, getUser } from "@/app/lib/current-profile";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import NavigationAction from "./navigation-action";
@@ -14,7 +14,7 @@ import Signout from "../signout";
 
 const NavigationSidebar = async () => {
 
-    const profile = await getUser();
+    const profile = await currentProfile();
     if (!profile) {
         redirect(`/api/auth/signin`)
     }
