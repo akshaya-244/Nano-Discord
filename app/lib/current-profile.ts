@@ -10,7 +10,7 @@ export async function getUser(){
 
 export const currentProfile= async() =>{
     const user=await getUser()
-    console.log(user)
+    // console.log(user)
     if(!user)
     {
        return null
@@ -23,6 +23,6 @@ export const currentProfile= async() =>{
             id:true
         }
     })
-    console.log(profile)
+    // console.log(profile)
     return profile
 }

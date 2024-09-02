@@ -48,9 +48,9 @@ const InviteModal = () => {
                         <DialogTitle className="text-2xl text-center font-bold">
                             Invite your friends
                         </DialogTitle>
-                        <div className='flex items-center mt-2 gap-x-2'>
+                        <div className='flex items-center mt-2 gap-x-2 mb-8'>
                             <Input className='bg-zinc-300/50 border-0 focus-visible:ring text-black focus-visible:ring-offset-0' value={inviteUrl} />
-                            <Button onClick={onCopy} size="icon" >
+                            <Button onClick={onCopy} size="icon" className='mb-8'>
                                 {copy ? <Check className='w-4 h-4'/> : <Copy className='w-4 h-4'/>}
                         </Button>
                         </div>

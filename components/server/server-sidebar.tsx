@@ -16,7 +16,7 @@ export const ServeSidebar = async({
     {
         return redirect('/')
     }
-    console.log("Profile: ",profile)
+    // console.log("Profile: ",profile)
     const server=await db.server.findUnique({
         where:{
             id: serverId,
@@ -37,7 +37,7 @@ export const ServeSidebar = async({
             }
         }
     })
-    console.log("SErversss: ",server)
+    // console.log("SErversss: ",server)
     const textChannels= server?.channels.filter((channel) => channel.type===ChannelType.TEXT)
     const audioChannels=server?.channels.filter((channel) => channel.type === ChannelType.AUDIO)
     const videoChannels=server?.channels.filter((channel) => channel.type===ChannelType.VIDEO)
