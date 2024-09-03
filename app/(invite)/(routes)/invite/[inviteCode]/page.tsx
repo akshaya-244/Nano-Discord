@@ -16,7 +16,7 @@ const InvideCodePage = async({
 
     if(!profile)
     {
-        return redirect('api/auth/signin')
+        return redirect('/api/auth/signin')
     }
     if(!params.inviteCode)
     {
@@ -54,7 +54,7 @@ const InvideCodePage = async({
     })
     if(server)
     {
-        return redirect(`servers/${server.id}`)
+        return redirect(`/servers/${server.id}`)
     }
     return null;
 }

@@ -70,7 +70,9 @@ const ManageMembersModal = () => {
             })
             const response=await axios.patch(url,{role})
             onOpen("manageMembers", {server: response.data})
+            onClose()
             router.refresh()
+            
 
         }
         catch(e)
