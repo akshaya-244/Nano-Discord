@@ -31,16 +31,27 @@ const formSchema=z.object({
 })
 const CreateChannelModal = () => {
 
-    const { isOpen, onClose, type} = useModal()
+       
+    const { isOpen, onClose, type, data} = useModal()
     const isModalOpen= type=="createChannel" && isOpen
+    const {channelType}=data
     const form=useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
-            type: ChannelType.TEXT
+            type: channelType ||  ChannelType.TEXT ||ChannelType.AUDIO || ChannelType.VIDEO
            
         }
     })
+   
+    useEffect(() => {
+        if(channelType){
+            form.setValue("type",channelType)
+        }
+        else{
+            form.setValue("type",ChannelType.TEXT)
+        }
+    },[])
     const router=  useRouter();
     const params=useParams()
 

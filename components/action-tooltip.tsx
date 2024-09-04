@@ -2,7 +2,7 @@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 interface ActionToolTipsProps{
     label: string,
-    children: React.ReactNode,
+    children?: React.ReactNode,
     side?: "top" | "right" | "bottom" | "left",
     align?: "start" | "center" | "end" 
 }
