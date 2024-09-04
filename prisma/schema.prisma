@@ -54,10 +54,13 @@ model Member{
   profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   serverId String
   server Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
-
+  messages Message[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  conversationIntiated  Conversations[] @relation("MemberOne")
+  conversationRecieved  Conversations[] @relation("MemberTwo")
 
+  directMessages DirectMessage[]
   @@index([profileId])
   @@index([serverId])
 }
@@ -81,8 +84,68 @@ model Channel{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  messages Message[]
   @@index([profileId])
   @@index([serverId])
 
 
+}
+
+model Message{
+  id String @id @default(uuid())
+  content String @db.Text
+  fileUrl String? @db.Text
+  
+
+  memberId String
+  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  channelId String
+  channel Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  deleted Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([channelId])
+  @@index([memberId])
+
+
+}
+
+model Conversations{
+  id String @id @default(uuid())
+
+   memberOneId String
+   memberOne Member @relation("MemberOne", fields: [memberOneId], references: [id], onDelete: Cascade)
+
+  memberTwoId String
+   memberTwo Member @relation("MemberTwo", fields: [memberTwoId], references: [id], onDelete: Cascade)
+  @@index([memberTwoId])
+
+  @@unique([memberOneId, memberTwoId])
+
+  directMessages DirectMessage[]
+
+}
+
+model DirectMessage{
+  id String @id @default(uuid())
+  content String @db.Text
+  fileUrl String? @db.Text
+  
+
+  memberId String
+  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  conversationId String
+  conversation Conversations @relation(fields: [conversationId], references: [id], onDelete: Cascade)  
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  deleted Boolean @default(false)
+
+  @@index([conversationId])
+  @@index([memberId])
 }
