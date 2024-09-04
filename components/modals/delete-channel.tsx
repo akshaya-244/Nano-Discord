@@ -11,7 +11,7 @@ import { Button } from '../ui/button';
 import { useEffect, useState } from 'react';
 import FileUpload from '../file-upload';
 import { NextResponse } from 'next/server';
-import { useParams, useRouter } from 'next/navigation';
+import {  useRouter } from 'next/navigation';
 import {useModal} from "../../hooks/use-modal-store"
 import { Check, Copy, RefreshCcw } from 'lucide-react';
 import { useOrigin } from '@/hooks/use-origin';
@@ -31,7 +31,6 @@ const DeleteChannelModal = () => {
     const isModalOpen= type=="deleteChannel" && isOpen
     const router= useRouter()
     
-    const params=useParams()
 
     const onDelete =async () => {
 
@@ -41,7 +40,7 @@ const DeleteChannelModal = () => {
             const url=qs.stringifyUrl({
                 url: `/api/channels/${channel?.id}`,
                 query:{
-                    serverId: params?.serverId
+                    serverId: server?.id
                 }
             })
             await axios.delete(url)
