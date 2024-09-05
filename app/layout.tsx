@@ -5,7 +5,8 @@ import { Providers } from "./providers";
 import { ThemeProvider } from "@/components/providers/theme-provider"
 import { cn } from "@/lib/utils";
 import { ModalProvider } from "@/components/providers/modal-provider";
-
+import { SocketProvider } from "@/components/providers/socket-provider";
+// import {SocketProvider} from "@/components/providers/sock"
 const font = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -29,8 +30,12 @@ export default function RootLayout({
             storageKey="discord-theme"
             disableTransitionOnChange
           >
+            <SocketProvider>
             <ModalProvider />
-          {children}
+            {children}
+          
+            </SocketProvider>
+           
           </ThemeProvider>
           </Providers>
         </body>

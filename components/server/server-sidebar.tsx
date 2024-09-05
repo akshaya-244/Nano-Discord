@@ -177,7 +177,7 @@ export const ServeSidebar = async ({
                         <div className="mb-2">
                             <ServerSection server={server} label="Members" sectionType="member" role={role} />
                             {members.map((member) => (
-                                <ServerMember member={member} server={server}/>
+                                <ServerMember key={member.id} member={member} server={server}/>
                             ))}
 
                         </div>

@@ -24,9 +24,12 @@ const ServerMember = ({
     const params=useParams()
 
     const roleIcon=iconMap[member.role]
+    console.log("Member: 123",member.id)
+    // console.log(member)
 
     const onClick = () => {
-        router.push(`/servers/${params.serverId}/conversations/${member.id}`)
+        
+        router.push(`/servers/${server.id}/conversations/${member.id}`)
     }
     return ( 
 

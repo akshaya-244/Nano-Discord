@@ -1,18 +1,23 @@
 import { createCipheriv } from "crypto"
 import { db } from "./db"
+import { NextResponse } from "next/server"
 
 
 export const getOrCreateConversation = async (memberOneId: string, memberTwoId:string) =>{
     let conversation =await findConversation(memberOneId, memberTwoId) || await findConversation(memberTwoId, memberOneId) 
+    console.log(conversation)
 
     if(!conversation)
     {
+        console.log("Entered")
         conversation=await createNewConversation(memberOneId, memberTwoId)
+        console.log("Conmnv: ",conversation)
     }
     return conversation
 }
 const  findConversation = async (memberOneId: string, memberTwoId:string) => {
-    const conv=await db.conversations.findFirst({
+    try{
+        return await db.conversations.findFirst({
         where:{
             AND:[
                 {memberOneId: memberOneId},
@@ -33,16 +38,20 @@ const  findConversation = async (memberOneId: string, memberTwoId:string) => {
         }
 
     })
-    return conv
+}
+catch{
+    return null
+}
 }
 
 const createNewConversation = async(memberOneId: string, memberTwoId:string)=>
 {
     try{
-        const conv=await db.conversations.create({
+        console.log(memberOneId," ",memberTwoId)
+        return await db.conversations.create({
            data:{
                 memberOneId,
-                 memberTwoId   
+                memberTwoId   
                 },
             include:{
                 memberOne:{
@@ -58,7 +67,6 @@ const createNewConversation = async(memberOneId: string, memberTwoId:string)=>
             }
     
         })
-        return conv
     }catch{
         return null
     }

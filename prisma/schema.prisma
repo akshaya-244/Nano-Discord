@@ -6,11 +6,14 @@
 
 generator client {
   provider = "prisma-client-js"
+  engineType = "binary"
+  accelerateUrl = env("PRISMA_DATABASE_URL") 
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+
 }
 
 model Profile{
@@ -52,11 +55,15 @@ model Member{
   role MemberRole @default(GUEST)
   profileId String
   profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  
   serverId String
   server Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  
   messages Message[]
+  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  
   conversationIntiated  Conversations[] @relation("MemberOne")
   conversationRecieved  Conversations[] @relation("MemberTwo")
 
@@ -117,16 +124,18 @@ model Message{
 model Conversations{
   id String @id @default(uuid())
 
-   memberOneId String
-   memberOne Member @relation("MemberOne", fields: [memberOneId], references: [id], onDelete: Cascade)
+  memberOneId String
+  memberOne Member @relation("MemberOne", fields: [memberOneId], references: [id], onDelete: Cascade)
 
   memberTwoId String
-   memberTwo Member @relation("MemberTwo", fields: [memberTwoId], references: [id], onDelete: Cascade)
-  @@index([memberTwoId])
+  memberTwo Member @relation("MemberTwo", fields: [memberTwoId], references: [id], onDelete: Cascade)
+  
+  directMessages DirectMessage[]
 
+  @@index([memberTwoId])
   @@unique([memberOneId, memberTwoId])
 
-  directMessages DirectMessage[]
+  
 
 }
 
