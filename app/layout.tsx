@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/providers/theme-provider"
 import { cn } from "@/lib/utils";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { SocketProvider } from "@/components/providers/socket-provider";
+import QueryProvider from "@/components/providers/query-provider";
 // import {SocketProvider} from "@/components/providers/sock"
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -32,8 +33,9 @@ export default function RootLayout({
           >
             <SocketProvider>
             <ModalProvider />
+            <QueryProvider>
             {children}
-          
+            </QueryProvider>
             </SocketProvider>
            
           </ThemeProvider>
