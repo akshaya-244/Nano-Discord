@@ -49,7 +49,7 @@ const Conversations = async({
 
     return ( 
         <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
-            <ChatHeader imageUrl={otherMember.profile.imageUrl} name={otherMember.profile.name} serverId={otherMember.serverId} type="conversation"  />
+            <ChatHeader imageUrl={otherMember.profile.imageUrl} name={otherMember.profile.name} serverId={otherMember.serverId} type="conversation"  profileId={otherMember.profileId}/>
         </div>
      );
 }

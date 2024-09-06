@@ -1,5 +1,6 @@
 import { currentProfile } from "@/app/lib/current-profile";
 import ChatHeader from "@/components/chat/chat-header";
+import ChatInput from "@/components/chat/chat-input";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 
@@ -17,7 +18,7 @@ const ChannelIdPage =async ({
     const profile=await currentProfile()
     if(!profile)
     {
-        return redirect(`api/auth/signin`)
+        return redirect(`/api/auth/signin`)
     }
     const channel=await db.channel.findUnique({
         where:{
@@ -39,7 +40,10 @@ const ChannelIdPage =async ({
 
     return (  
         <div className="bg-white dark:bg-[#313338] flex flex-col h-full ">
-            <ChatHeader name={channel?.name} serverId={params.serverId} type="channel" />
+            <ChatHeader name={channel?.name} serverId={params.serverId} type="channel"  />
+            <div className="flex-1"> Future Messages</div>
+                <ChatInput name={channel?.name} type="channel" apiUrl="/api/socket/messages" query={{channelId: channel?.id, serverId: channel?.serverId, }}/>
+            
         </div>
     );
 }

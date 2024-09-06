@@ -27,6 +27,7 @@ export const NEXT_AUTH={
         session ({session, token, user} : any) {
             if (session && session.user)
             {
+                
                 session.user.id = token.sub
             }
             return session

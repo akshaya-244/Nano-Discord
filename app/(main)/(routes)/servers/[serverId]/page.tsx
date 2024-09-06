@@ -1,6 +1,7 @@
 import { currentProfile } from "@/app/lib/current-profile";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
+import { NextResponse } from "next/server";
 
 interface ServerPageProps{
     params: {
@@ -38,13 +39,15 @@ const ServerPage =async ({
             
         }
     })
+    console.log("server42: ", server)
 
     const initialChannel= server?.channels[0]
-
+    console.log("Initial: ", initialChannel)
     if(initialChannel?.name !== "general")
     {
         return null
     }
+
     return redirect(`/servers/${server?.id}/channels/${initialChannel.id}`)
 }
  

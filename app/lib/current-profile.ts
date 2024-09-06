@@ -5,12 +5,13 @@ import { db } from "@/lib/db";
 
 export async function getUser(){
     const session=await getServerSession(NEXT_AUTH)
+    // console.log("Session: ",session)
     return session;
 }
 
 export const currentProfile= async() =>{
     const user=await getUser()
-    // console.log(user)
+    // console.log("User:  ",user)
     if(!user)
     {
        return null
