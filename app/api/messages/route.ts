@@ -17,7 +17,7 @@ export async function GET(req:Request) {
         {return new NextResponse("Unauthorised", { status: 401})}
     
         if(channelId)
-            {return new NextResponse("Unauthorised", { status: 401})}
+            {return new NextResponse("Unauthorised", { status: 500})}
         
         let messages: Message[] = []
 
@@ -29,7 +29,7 @@ export async function GET(req:Request) {
                     id:cursor
                 },
                 where: {
-                    channelId,
+                    channelId: channelId || "",
                 },
                 include:{
                     member:{
@@ -47,7 +47,7 @@ export async function GET(req:Request) {
             messages=await db.message.findMany({
                 take:MESSAGE_BATCH,
                 where:{
-                    channelId,
+                    channelId: channelId || "",
                 },
                 include:{
                     member:{

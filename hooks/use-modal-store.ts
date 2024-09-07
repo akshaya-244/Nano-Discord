@@ -2,7 +2,7 @@ import { ServerWithMemebersWithProfile } from "@/types";
 import {  Channel, ChannelType, Server } from "@prisma/client/edge";
 import {create} from "zustand"
  
-export type ModalType = "createServer" | "invite" | "editServer" | "manageMembers" |"createChannel" |"leaveServer" | "deleteServer" | "deleteChannel" | "editChannel" |"messageFile"
+export type ModalType = "createServer" | "invite" | "editServer" | "manageMembers" |"createChannel" |"leaveServer" | "deleteServer" | "deleteChannel" | "editChannel" |"messageFile" |"deleteMessage"
 
 interface ModalData{
     server?: ServerWithMemebersWithProfile | Server,

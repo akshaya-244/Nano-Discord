@@ -7,14 +7,13 @@ import { NextApiRequest } from "next";
 import { useSession } from "next-auth/react";
 
 export default async function handler(req:NextApiRequest, res: NextApiResponseServerIo) {
-    console.log("Req from messages: ",req);
+    // console.log("Req from messages: ",req);
     if(req.method !== "POST")
     {
         return res.status(405).json({error: "Message not allowed"})
     }
     //serverId, channelId
     try{
-        console.log("oooooooooooooooooooooooooooooooooooooooooooooo")
         
    
         
