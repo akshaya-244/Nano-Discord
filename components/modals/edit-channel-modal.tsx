@@ -27,7 +27,7 @@ const formSchema=z.object({
             message: "Channel name cannot be 'general'"
         }
     ), 
-    type:z.nativeEnum(ChannelType)
+    type:z.nativeEnum(ChannelType) 
    
 })
 const EditChannelModal = () => {
@@ -40,7 +40,7 @@ const EditChannelModal = () => {
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
-            type: channelType
+            type: channelType 
            
         }
     })
@@ -96,6 +96,7 @@ const EditChannelModal = () => {
                         
                     </DialogHeader>
                     <Form {...form}>
+                        {/* @ts-ignore */}
                         <form onSubmit={form.handleSubmit(onSubmit)} className='spave-y-8'>
                             <div className='space-y-8 px-8 '>
                                 <div className='space-y-8 px-6'>

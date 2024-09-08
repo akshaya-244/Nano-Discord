@@ -44,6 +44,10 @@ const ChannelIdPage =async ({
     {
         return redirect('/')
     }
+    if(!member)
+    {
+        return redirect('/servers')
+    }
 
     return (  
         <div className="bg-white dark:bg-[#313338]  flex flex-col h-full ">

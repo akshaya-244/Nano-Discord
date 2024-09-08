@@ -32,6 +32,7 @@ const ServerSection = ({
 
 {role == MemberRole.ADMIN && sectionType === "member"  && (
             <ActionToolTip label="Manage Members" side="top">
+                {/* @ts-ignore */}
                 <button onClick={() => {onOpen("manageMembers", {server})}} className="text-zinc-500 hover:text-zinc-600 dark:text-zinc-100 dark:hover:text-zinc-400">
                     <Settings className="h-4 w-4"/>
                 </button>

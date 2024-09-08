@@ -101,7 +101,7 @@ export default async function handler(req:NextApiRequest, res: NextApiResponseSe
         if(req.method == "DELETE")
         {
            
-            directMessage=await db.directMessage.delete (({
+            directMessage=await db.directMessage.update (({
                 where:{
                     id:directMessageId as string,
                 },

@@ -106,10 +106,12 @@ export default async function handler(req:NextApiRequest, res: NextApiResponseSe
         if(req.method == "DELETE")
         {
            
-            message=await db.message.delete (({
+            message=await db.message.update (({
                 where:{
                     id:messageId as string,
                 },
+
+            
                 data:{
                     fileUrl: null,
                     content: "This message has been deleted",

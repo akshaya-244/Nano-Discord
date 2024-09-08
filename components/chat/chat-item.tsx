@@ -20,16 +20,16 @@ import { useParams, useRouter } from "next/navigation";
 
 interface ChatItemProps {
     id: string | undefined
-    content: string | undefined
+    content: string 
     member: Member & {
         profile: Profile
     }
     timestamp: string | undefined
-    fileUrl: string | undefined
+    fileUrl: string | null
     deleted: boolean
     currentMember: Member
     isUpdated: boolean
-    socketUrl: string
+    socketUrl: string | undefined
     socketQuery: Record<string, string>
 }
 
