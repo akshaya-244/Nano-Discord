@@ -14,70 +14,72 @@ export default async function handler(req:NextApiRequest, res: NextApiResponseSe
     }
     //serverId, channelId
     try{
-        
-   
-        
+         
         const profile =  await currentProfilePages(req,res )
         console.log("Profile: ",profile)
         const {content, fileUrl} =req.body;
-        const {serverId, channelId }=req.query;
+        const {conversationId }=req.query;
 
         if(!profile)
         {
             return res.status(401).json({error: "Unauthorised"})
         }
-        if(!serverId){
-            return res.status(401).json({error: "Server Id missing"})
-        }
-        if(!channelId)
-        {
-            return res.status(401).json({error: "Channel Id missing"})
-            
-        }
+
+        if(!conversationId)
+            {
+                return res.status(401).json({error: "Conversation id is missing"})
+            }
+        
+        
         if(!content)
             {
                 return res.status(401).json({error: "Content missing"})
                 
             }
-        const server=await db.server.findFirst({
-            where:{
-                id: serverId as string,
-                members:{
-                    some:{
-                        profileId: profile.id
+        const conversation = await db.conversations.findFirst({
+            where: {
+                id: conversationId as string,
+                OR: [
+                    {
+                        memberOne:{
+                            profileId: profile.id,
+                        }
+                    },{
+                        memberTwo: {
+                            profileId: profile.id
+                        }
+                    }
+                ]
+,
+            },
+            include:{
+                memberOne:{
+                    include:{
+                        profile: true
+                    }
+                },
+                memberTwo:{
+                    include:{
+                        profile: true
                     }
                 }
-            },
-            include: {
-                members: true
-            }
-        });
-        if(!server)
-        {
-            return res.status(404).json({message: "Server not found"})
-        }
-        const channel=await db.channel.findFirst({
-            where:{
-                id: channelId as string,
-                serverId: serverId as string
             }
         })
-
-        if(!channel)
-        {
-            return res.status(404).json({message: "Channel not found"})
+        if(!conversationId){
+            return res.status(404).json({message: "Conversation Id is missing"})
         }
 
-        const member=server.members.find((member) => member.profileId === profile.id )
+        const member = conversation?.memberOne.profileId === profile.id ? conversation.memberOne : conversation?.memberTwo
+
         if(!member)
         {
             return res.status(404).json({message: "Member not found"})
         }
-        const message=await db.message.create({
+        const message=await db.directMessage.create({
             data: {
                 content,
                 fileUrl,
-                channelId: channelId as string,
+               conversationId: conversationId as string,
                 memberId: member.id
             },
             include:{
@@ -89,14 +91,14 @@ export default async function handler(req:NextApiRequest, res: NextApiResponseSe
             }
         })
 
-        const channelKey =`chat${channelId}:messages`
+        const channelKey =`chat${conversationId}:messages`
         res.socket.server.io.emit(channelKey,message)
         res.status(200).json(message)
 
     }
     catch(e)
     {
-        console.log("[MESSAGES_POST]", e)
+        console.log("[DIRECT_MESSAGES_POST]", e)
         return res.status(500).json({message: "Internal Error"});
 
     }

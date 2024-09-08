@@ -100,6 +100,9 @@ const ChatItem = ({
     }, [content])
 
     const fileType = fileUrl?.split(".").pop()
+    console.log("Current Member: ", currentMember)
+    // console.log("Member Role: ", )
+
     const isAdmin = currentMember.role === MemberRole.ADMIN
     const isModerator = currentMember.role === MemberRole.MODERATOR
     const isOwner = currentMember.id === member.id
