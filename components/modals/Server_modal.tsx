@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import FileUpload from '../file-upload';
 import { NextResponse } from 'next/server';
 import { useRouter } from 'next/navigation';
+import { useModal } from '@/hooks/use-modal-store';
 
 
 
@@ -23,7 +24,8 @@ const formSchema=z.object({
     })
 })
 const ServerModal = () => {
-
+    const {type,isOpen,onClose} =useModal();
+    const isModalOpen=  type=="createServer" && isOpen
     const form=useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -44,6 +46,7 @@ const ServerModal = () => {
             axios.post('api/servers', values)
             form.reset()
             router.refresh()
+            handleClose()
             window.location.reload()
         }catch(e)
         {
@@ -51,12 +54,15 @@ const ServerModal = () => {
         }
     }
 
-   
+   const handleClose = () => {
+
+    onClose()
+   }
 
     if(!isMounted)
         return null;
     return ( 
-            <Dialog open>
+            <Dialog open onOpenChange={handleClose}>
                 <DialogContent className="bg-white text-black p-0 overflow-hidden">
                     <DialogHeader className="pt-8 px-8">
                         <DialogTitle className="text-2xl text-center font-bold">
