@@ -86,7 +86,8 @@ export default async function handler(req:NextApiRequest, res: NextApiResponseSe
                 }
             }
         })
-
+        //emit a socketio to all connections
+        //The actual data being emitted, which represents the new message. This data will be broadcasted to all clients connected to this channel.
         const channelKey =`chat${channelId}:messages`
         res.socket.server.io.emit(channelKey,message)
         res.status(200).json(message)

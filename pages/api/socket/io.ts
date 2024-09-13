@@ -12,21 +12,24 @@ export const config = {
 }
 
 const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
+    //checks if Socket.io server instance is already initialized
     if(! res.socket.server.io){
 
         // path: "/api/socket/io": Defines the endpoint where the WebSocket connection should happen.
 // addTrailingSlash: false: Ensures that the trailing slash is not added to the path.
         const path= "/api/socket/io"
+        //https server is extracted from res.socket.server and cast to a NetServer. 
         const httpServer: NetServer = res.socket.server as any;
 
         // ServerIO is the WebSocket server, and it is linked to the existing HTTP server (res.socket.server) to handle WebSocket traffic.
-// res.end(): Ends the response since this route is not sending back data in the traditional HTTP way (like JSON or HTML), but rather initializing a WebSocket server.
+        // A new instance  of server IO is created which initialised the socketIO server with the HTTP server
         const io=new ServerIO(httpServer,{
             path: path,
             addTrailingSlash: false
         });
         res.socket.server.io=io;
     }
+    // res.end(): Ends the response since this route is not sending back data in the traditional HTTP way (like JSON or HTML), but rather initializing a WebSocket server.
     res.end()
 }
 

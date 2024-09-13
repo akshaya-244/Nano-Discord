@@ -13,7 +13,7 @@ interface ChatQueryProps {
 export const useChatQuery = ({
     queryKey, apiUrl, paramKey, paramValue
 } : ChatQueryProps) => {
-    console.log("Use chat query")
+    console.log("Use chat query ")
     console.log("ApiURL, : ",apiUrl )
     console.log("queryKey: ",queryKey)
     console.log("paramKey: ",paramKey)
@@ -36,7 +36,7 @@ export const useChatQuery = ({
         queryFn: fetchMessages,
         getNextPageParam: (lastPage) => lastPage?.nextCursor,
         initialPageParam: undefined, 
-        refetchInterval: (!isConnected) ? 5000000 : 5000000
+        refetchInterval:  isConnected ? 2000 : 2000
     })
 
     return {

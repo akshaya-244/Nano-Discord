@@ -26,11 +26,12 @@ export const SocketProvider = ({
     const [isConnected, setIsConnected] = useState(false)
 
     useEffect(() => {
+        //ClientIO is used to create a new socket instance 
         const socketInstance = new (ClientIO as any)(process.env.NEXT_PUBLIC_SITE_URL!, {
             path: "/api/socket/io",
             addTrailingSlash: false
         })
-
+        
         socketInstance.on("connect", () => {
             setIsConnected(true)
         })
