@@ -2,12 +2,13 @@
 import { signOut } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 const Signout = () => {
+    const router=useRouter()
     const handleClick=() => {
         signOut()
-        redirect('/')
+        router.push('/signin')
     }
     return ( 
         <div>

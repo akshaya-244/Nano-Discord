@@ -12,7 +12,8 @@ export const initialProfile = async() => {
     const session=await getUser();
     if(!session)
     {
-        redirect('/api/auth/signin')
+        redirect('/signin')
+
     }
     
 
