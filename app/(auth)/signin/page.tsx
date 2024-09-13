@@ -24,7 +24,7 @@ const Signin = () => {
         </div>
         </div>
        
-        <Image width={700} height={500} src="/bg-4.jpg" alt="bg04"/>
+        <Image className="rounded-4xl" width={700} height={500} src="/bg-4.jpg" alt="bg04"/>
 
         {/* <Image width={700} height={500} src="/bg-3.jpg" alt="bg02" /> */}
       </div>

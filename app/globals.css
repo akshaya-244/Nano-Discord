@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+.please {
+  display: flex;
+}
 
 html,
 body,
