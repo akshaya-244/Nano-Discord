@@ -24,7 +24,7 @@ const formSchema = z.object({
   content: z.string().min(1),
 });
 const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
-  const [output, setOutput] = useState("");
+  const [output, setOutput] = useState("some val");
   const { onOpen } = useModal();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,6 +38,10 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
   const generateText = async (prompt: string) => {
     try {
       // use the fetch method to send an http request to /api/generate endpoint
+
+      const myPrompt =
+        "Please keep it short and to the point. Be as informal as possible unless told otherwise. And dont add any decorations. Only plain text is needed";
+      prompt = prompt + myPrompt;
       const response = await fetch("/api/generate", {
         method: "POST",
         headers: {
@@ -53,6 +57,8 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
       if (response.ok) {
         console.log("Output: ", data.output);
         setOutput(data.output);
+
+        return data.output;
       } else {
         setOutput(data.error);
       }
@@ -75,9 +81,10 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
         const prompt = inputString.slice(
           inputString.indexOf(keyword) + keyword.length
         );
-        await generateText(prompt);
-        form.setValue("content", output);
+        const x = await generateText(prompt);
+        form.setValue("content", x);
         console.log("Values: ", output);
+        console.log("Values: ", x);
       } else {
         await axios.post(url, values);
         form.reset();
@@ -104,9 +111,9 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                   >
                     <Plus className="text-white dark:text-[#313338]" />
                   </button>
-                  <Textarea
+                  {/* <Textarea
                     onKeyDown={(e) => {
-                      if (e.key === "Enter") {
+                      if (e.key === "Enter" && !e.shiftKey) {
                         e.preventDefault();
                         // Trigger form submission when Enter is pressed without Shift
                         form.handleSubmit(onSubmit)();
@@ -118,7 +125,29 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                       type === "conversation" ? name : "#" + name
                     }`}
                     className="px-14 bg-zinc-200/90 dark:bg-zinc-600/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
-                  />
+                  /> */}
+
+<Textarea
+  onKeyDown={(e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      // Trigger form submission when Enter is pressed without Shift
+      form.handleSubmit(onSubmit)();
+    }
+  }}
+  disabled={isLoading}
+                    {...field}
+                    placeholder={`Message ${
+                      type === "conversation" ? name : "#" + name
+                    }`}
+                    className="px-14 bg-zinc-200/90 dark:bg-zinc-600/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
+  onInput={(e) => {
+    const textarea = e.target as HTMLTextAreaElement; // Cast the target to HTMLTextAreaElement
+    textarea.style.height = "auto"; // Reset height to auto to calculate the new height
+    textarea.style.height = `${textarea.scrollHeight}px `; // Set height to the scrollHeight of the content
+  }}
+  
+/>
                   <div className="absolute top-7 right-8">
                     <EmojiPicker
                       onChange={(emoji: string) =>

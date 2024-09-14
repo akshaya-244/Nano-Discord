@@ -62,7 +62,7 @@ const Signin = () => {
        powered by Gemini AI
         </div>
         <div>
-            <Button onClick={handleClick} size="lg"  className="text-xl mt-10 font-mono font-bold bg-gradient-to-r from-blue-600 to-blue-400">Lets Login! </Button>
+            <Button onClick={handleClick} size="lg"  className="text-xl mt-10  font-mono font-extrabold bg-gradient-to-r from-blue-600 to-blue-400"> Login </Button>
         </div>
         {/* Nano Discord <br /> Powered by AI */}
       </motion.h1>
