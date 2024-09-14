@@ -58,11 +58,11 @@ const Signin = () => {
           
           <span className="text-6xl "> Nano </span><br></br> Discord
          </div>
-         <div className="text-white mt-5 text-xl font-light font-sans italic">
+         <div className="text-blue-400 mt-5 text-xl font-light font-sans italic">
        powered by Gemini AI
         </div>
         <div>
-            <Button onClick={handleClick} size="lg"  className="text-xl mt-10  font-mono font-extrabold bg-gradient-to-r from-blue-600 to-blue-400"> Login </Button>
+            <Button onClick={handleClick} size="lg"  className="text-xl mt-10 bg-white font-mono  text-black"> LOGIN </Button>
         </div>
         {/* Nano Discord <br /> Powered by AI */}
       </motion.h1>
