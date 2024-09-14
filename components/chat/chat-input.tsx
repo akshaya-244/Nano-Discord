@@ -111,21 +111,7 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                   >
                     <Plus className="text-white dark:text-[#313338]" />
                   </button>
-                  {/* <Textarea
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" && !e.shiftKey) {
-                        e.preventDefault();
-                        // Trigger form submission when Enter is pressed without Shift
-                        form.handleSubmit(onSubmit)();
-                      }
-                    }}
-                    disabled={isLoading}
-                    {...field}
-                    placeholder={`Message ${
-                      type === "conversation" ? name : "#" + name
-                    }`}
-                    className="px-14 bg-zinc-200/90 dark:bg-zinc-600/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
-                  /> */}
+               
 
 <Textarea
   onKeyDown={(e) => {
